@@ -17,7 +17,7 @@
       position: absolute;
       width: 150px;
       top: 20px;
-      left: calc(100% - 170px); /* bắt đầu ở góc phải */
+      left: calc(100% - 170px); /* bắt đầu từ góc phải */
       transition: all 0.5s ease-in-out;
     }
 
@@ -42,32 +42,37 @@
     const bird = document.getElementById("bird");
     const message = document.getElementById("message");
 
-    let moveCount = 0;
     const maxMoves = 20;
+    let moveCount = 0;
 
     let currentX = window.innerWidth - 170;
     let currentY = 20;
+
     bird.style.left = `${currentX}px`;
     bird.style.top = `${currentY}px`;
 
-    function biasedDeltaX() {
-      const range = 250;
-      const bias = -0.7; // thiên lệch sang trái (âm)
-      const random = Math.random(); // [0,1)
-      return (random + bias) * range; // thiên về âm
-    }
-
-    function randomDeltaY() {
-      return (Math.random() - 0.5) * 2 * 150; // ±80
-    }
+    const centerX = (window.innerWidth - 150) / 2;
+    const centerY = (window.innerHeight - 150) / 2;
 
     function moveBird() {
       if (moveCount < maxMoves) {
-        const deltaX = biasedDeltaX();
-        const deltaY = randomDeltaY();
+        // Hệ số hội tụ dần về giữa
+        const progress = moveCount / maxMoves;
 
-        currentX = Math.min(window.innerWidth - 150, Math.max(0, currentX + deltaX));
-        currentY = Math.min(window.innerHeight - 150, Math.max(0, currentY + deltaY));
+        // Tính hướng bay về giữa màn hình
+        const toCenterX = centerX - currentX;
+        const toCenterY = centerY - currentY;
+
+        // Điều chỉnh bay một phần nhỏ về phía giữa + chút ngẫu nhiên
+        const deltaX = toCenterX * 0.2 + (Math.random() - 0.5) * 60; // 60 là độ lệch nhỏ
+        const deltaY = toCenterY * 0.2 + (Math.random() - 0.5) * 40;
+
+        currentX += deltaX;
+        currentY += deltaY;
+
+        // Giới hạn trong màn hình
+        currentX = Math.min(window.innerWidth - 150, Math.max(0, currentX));
+        currentY = Math.min(window.innerHeight - 150, Math.max(0, currentY));
 
         bird.style.left = `${currentX}px`;
         bird.style.top = `${currentY}px`;
@@ -75,9 +80,7 @@
         moveCount++;
         setTimeout(moveBird, 500);
       } else {
-        // Đưa chim vào giữa màn hình
-        const centerX = (window.innerWidth - 150) / 2;
-        const centerY = (window.innerHeight - 150) / 2;
+        // Đặt chính xác giữa
         bird.style.left = `${centerX}px`;
         bird.style.top = `${centerY}px`;
 
