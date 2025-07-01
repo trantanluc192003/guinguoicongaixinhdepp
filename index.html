@@ -17,7 +17,7 @@
       position: absolute;
       width: 150px;
       top: 20px;
-      left: calc(100% - 170px); /* bắt đầu từ góc phải */
+      left: calc(100% - 170px); /* bắt đầu góc phải */
       transition: all 0.5s ease-in-out;
     }
 
@@ -46,7 +46,7 @@
     let moveCount = 0;
 
     let currentX = window.innerWidth - 170;
-    let currentY = 15;
+    let currentY = 20;
 
     bird.style.left = `${currentX}px`;
     bird.style.top = `${currentY}px`;
@@ -56,21 +56,25 @@
 
     function moveBird() {
       if (moveCount < maxMoves) {
-        // Hệ số hội tụ dần về giữa
-        const progress = moveCount / maxMoves;
+        let deltaX, deltaY;
 
-        // Tính hướng bay về giữa màn hình
-        const toCenterX = centerX - currentX;
-        const toCenterY = centerY - currentY;
+        if (moveCount < maxMoves / 2) {
+          // Giai đoạn 1: bay tự do nhưng có xu hướng đi xuống
+          deltaX = (Math.random() - 0.7) * 80; // thiên lệch sang trái
+          deltaY = Math.random() * 60;         // chỉ đi xuống
+        } else {
+          // Giai đoạn 2: hội tụ dần về giữa màn hình (đi lên)
+          const toCenterX = centerX - currentX;
+          const toCenterY = centerY - currentY;
 
-        // Điều chỉnh bay một phần nhỏ về phía giữa + chút ngẫu nhiên
-        const deltaX = toCenterX * 0.2 + (Math.random() - 0.5) * 60; // 60 là độ lệch nhỏ
-        const deltaY = toCenterY * 0.2 + (Math.random() - 0.5) * 40;
+          deltaX = toCenterX * 0.2 + (Math.random() - 0.5) * 40;
+          deltaY = toCenterY * 0.2 + (Math.random() - 0.5) * 30;
+        }
 
         currentX += deltaX;
         currentY += deltaY;
 
-        // Giới hạn trong màn hình
+        // Giới hạn trong khung màn hình
         currentX = Math.min(window.innerWidth - 150, Math.max(0, currentX));
         currentY = Math.min(window.innerHeight - 150, Math.max(0, currentY));
 
@@ -80,7 +84,7 @@
         moveCount++;
         setTimeout(moveBird, 500);
       } else {
-        // Đặt chính xác giữa
+        // Dừng chính xác ở giữa màn hình
         bird.style.left = `${centerX}px`;
         bird.style.top = `${centerY}px`;
 
