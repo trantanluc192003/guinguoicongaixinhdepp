@@ -57,7 +57,7 @@
 
     function moveBird() {
       if (moveCount < maxMoves) {
-        const deltaX = smallRandomDelta(200); // bay ngắn trong khoảng ±100px
+        const deltaX = smallRandomDelta(300); // bay ngắn trong khoảng ±100px
         const deltaY = smallRandomDelta(80);
 
         currentX = Math.min(window.innerWidth - 150, Math.max(0, currentX + deltaX));
@@ -67,7 +67,7 @@
         bird.style.top = `${currentY}px`;
 
         moveCount++;
-        setTimeout(moveBird, 200);
+        setTimeout(moveBird, 500);
       } else {
         // Bay vào giữa màn hình
         const centerX = (window.innerWidth - 150) / 2;
