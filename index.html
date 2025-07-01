@@ -43,7 +43,7 @@
     const message = document.getElementById("message");
 
     let moveCount = 0;
-    const maxMoves = 10;
+    const maxMoves = 15;
 
     // Bắt đầu ở góc phải trên
     let currentX = window.innerWidth - 170;
@@ -57,8 +57,8 @@
 
     function moveBird() {
       if (moveCount < maxMoves) {
-        const deltaX = smallRandomDelta(400); // bay ngắn trong khoảng ±100px
-        const deltaY = smallRandomDelta(150);
+        const deltaX = smallRandomDelta(700); // bay ngắn trong khoảng ±100px
+        const deltaY = smallRandomDelta(100);
 
         currentX = Math.min(window.innerWidth - 150, Math.max(0, currentX + deltaX));
         currentY = Math.min(window.innerHeight - 150, Math.max(0, currentY + deltaY));
