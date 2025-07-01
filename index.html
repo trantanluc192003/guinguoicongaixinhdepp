@@ -43,7 +43,7 @@
     const message = document.getElementById("message");
 
     let moveCount = 0;
-    const maxMoves = 10;
+    const maxMoves = 20;
 
     let currentX = window.innerWidth - 170;
     let currentY = 20;
@@ -51,7 +51,7 @@
     bird.style.top = `${currentY}px`;
 
     function biasedDeltaX() {
-      const range = 200;
+      const range = 300;
       const bias = -0.7; // thiên lệch sang trái (âm)
       const random = Math.random(); // [0,1)
       return (random + bias) * range; // thiên về âm
