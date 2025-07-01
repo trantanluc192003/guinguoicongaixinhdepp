@@ -17,7 +17,7 @@
       position: absolute;
       width: 150px;
       top: 20px;
-      right: 20px; /* bắt đầu từ góc phải */
+      left: calc(100% - 170px); /* bắt đầu ở góc phải */
       transition: all 0.5s ease-in-out;
     }
 
@@ -43,34 +43,38 @@
     const message = document.getElementById("message");
 
     let moveCount = 0;
-    const maxMoves = 15;
+    const maxMoves = 10;
 
-    // Thiết lập ban đầu ở góc trên phải
-    bird.style.top = "20px";
-    bird.style.left = `${window.innerWidth - 170}px`;
+    // Bắt đầu ở góc phải trên
+    let currentX = window.innerWidth - 170;
+    let currentY = 20;
+    bird.style.left = `${currentX}px`;
+    bird.style.top = `${currentY}px`;
 
-    function randomPosition() {
-      const maxX = window.innerWidth - 150;
-      const maxY = window.innerHeight - 150;
-      const x = Math.floor(Math.random() * maxX);
-      const y = Math.floor(Math.random() * maxY);
-      bird.style.left = `${x}px`;
-      bird.style.top = `${y}px`;
+    function smallRandomDelta(range) {
+      return (Math.random() - 0.5) * 2 * range;
     }
 
     function moveBird() {
       if (moveCount < maxMoves) {
-        randomPosition();
+        const deltaX = smallRandomDelta(200); // bay ngắn trong khoảng ±100px
+        const deltaY = smallRandomDelta(80);
+
+        currentX = Math.min(window.innerWidth - 150, Math.max(0, currentX + deltaX));
+        currentY = Math.min(window.innerHeight - 150, Math.max(0, currentY + deltaY));
+
+        bird.style.left = `${currentX}px`;
+        bird.style.top = `${currentY}px`;
+
         moveCount++;
         setTimeout(moveBird, 500);
       } else {
-        // Di chuyển chim vào giữa màn hình
+        // Bay vào giữa màn hình
         const centerX = (window.innerWidth - 150) / 2;
         const centerY = (window.innerHeight - 150) / 2;
         bird.style.left = `${centerX}px`;
         bird.style.top = `${centerY}px`;
 
-        // Hiện lời nhắn
         setTimeout(() => {
           message.style.opacity = 1;
         }, 800);
