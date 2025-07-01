@@ -7,7 +7,7 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: #fcedf3;
+      background-color: #ffe6f0;
       height: 100vh;
       overflow: hidden;
       font-family: 'Courier New', monospace;
@@ -17,7 +17,7 @@
       position: absolute;
       width: 150px;
       top: 20px;
-      left: calc(100% - 170px); /* bắt đầu ở góc phải */
+      right: 20px; /* bắt đầu từ góc phải */
       transition: all 0.5s ease-in-out;
     }
 
@@ -45,36 +45,32 @@
     let moveCount = 0;
     const maxMoves = 15;
 
-    // Bắt đầu ở góc phải trên
-    let currentX = window.innerWidth - 170;
-    let currentY = 20;
-    bird.style.left = `${currentX}px`;
-    bird.style.top = `${currentY}px`;
+    // Thiết lập ban đầu ở góc trên phải
+    bird.style.top = "20px";
+    bird.style.left = `${window.innerWidth - 170}px`;
 
-    function smallRandomDelta(range) {
-      return (Math.random() - 0.5) * 2 * range;
+    function randomPosition() {
+      const maxX = window.innerWidth - 150;
+      const maxY = window.innerHeight - 150;
+      const x = Math.floor(Math.random() * maxX);
+      const y = Math.floor(Math.random() * maxY);
+      bird.style.left = `${x}px`;
+      bird.style.top = `${y}px`;
     }
 
     function moveBird() {
       if (moveCount < maxMoves) {
-        const deltaX = smallRandomDelta(700); // bay ngắn trong khoảng ±100px
-        const deltaY = smallRandomDelta(100);
-
-        currentX = Math.min(window.innerWidth - 150, Math.max(0, currentX + deltaX));
-        currentY = Math.min(window.innerHeight - 150, Math.max(0, currentY + deltaY));
-
-        bird.style.left = `${currentX}px`;
-        bird.style.top = `${currentY}px`;
-
+        randomPosition();
         moveCount++;
         setTimeout(moveBird, 500);
       } else {
-        // Bay vào giữa màn hình
+        // Di chuyển chim vào giữa màn hình
         const centerX = (window.innerWidth - 150) / 2;
         const centerY = (window.innerHeight - 150) / 2;
         bird.style.left = `${centerX}px`;
         bird.style.top = `${centerY}px`;
 
+        // Hiện lời nhắn
         setTimeout(() => {
           message.style.opacity = 1;
         }, 800);
