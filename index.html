@@ -57,8 +57,8 @@
 
     function moveBird() {
       if (moveCount < maxMoves) {
-        const deltaX = smallRandomDelta(100); // bay ngắn trong khoảng ±100px
-        const deltaY = smallRandomDelta(80);
+        const deltaX = smallRandomDelta(400); // bay ngắn trong khoảng ±100px
+        const deltaY = smallRandomDelta(150);
 
         currentX = Math.min(window.innerWidth - 150, Math.max(0, currentX + deltaX));
         currentY = Math.min(window.innerHeight - 150, Math.max(0, currentY + deltaY));
