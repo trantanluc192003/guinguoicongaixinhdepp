@@ -73,7 +73,23 @@
       transition: all 0.5s ease-in-out;
       z-index: 2;
     }
-
+    #mattroi {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 40px;
+    left: 60px;
+    z-index: 0;
+    } 
+    
+    #dammay {
+      position: absolute;
+      width: 250px;
+      height: 150px;
+      top: 30px;
+      left: calc(50% + 50px); /* lệch phải so với hòm thư */
+      z-index: 0;
+    }
     #flapSound {
       position: absolute;
       display: none;
@@ -107,7 +123,8 @@
   <!-- Nhà và hòm thư -->
   <img id="nha" src="nha222.png" alt="Ngôi nhà" />
   <img id="homthu" src="homthu.png" alt="Hòm thư" />
-
+  <img id="mattroi" src="mattroi.gif" alt="Mặt trời" />
+  <img id="dammay" src="dammay.png" alt="Đám mây" />
   <!-- Chim bồ câu -->
   <img id="bird" src="bocauduathu.gif" alt="Chim bồ câu đưa thư" />
 
