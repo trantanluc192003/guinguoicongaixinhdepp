@@ -77,12 +77,13 @@
 
   <!-- Màn hình chào đầu tiên -->
   <div id="welcomeScreen">
-    <img id="welcomeImg" src="hello.gif" alt="Xin chào" />
+    <img id="welcomeImg" src="hellocutee.gif" alt="Xin chào" />
     <button id="startBtn">Click vào đây nha</button>
   </div>
 
   <!-- Video tiếng vỗ cánh -->
   <video id="flapSound" src="dapcanh.mp3" autoplay></video>
+  <audio id="bellSound" src="tiengchuong.mp3"></audio>
 
   <!-- Ảnh chim bồ câu -->
   <img id="bird" src="bocauduathu.gif" alt="Chim bồ câu đưa thư" />
@@ -96,6 +97,7 @@
     const bird = document.getElementById("bird");
     const message = document.getElementById("message");
     const flapSound = document.getElementById("flapSound");
+    const bellSound = document.getElementById("bellSound");
 
     let moveCount = 0;
     const maxMoves = 30;
@@ -158,7 +160,7 @@
         flapSound.pause();
         flapSound.currentTime = 0;
         flapSound.style.display = "none";
-
+        bellSound.play();
         // Hiện lời nhắn
         setTimeout(() => {
           message.style.opacity = 1;
