@@ -7,7 +7,7 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: #f8eff5;
+      background-color: #cdf5f8;
       height: 100vh;
       overflow: hidden;
       font-family: 'Courier New', monospace;
@@ -34,7 +34,7 @@
     #startBtn {
       padding: 12px 20px;
       font-size: 18px;
-      background-color: #fbe6ee;
+      background-color: #ff66a3;
       color: white;
       border: none;
       border-radius: 8px;
@@ -48,11 +48,30 @@
       50% { opacity: 0.5; }
     }
 
+    #nha {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      left: 30px;
+      top: calc(50% - 175px); /* căn giữa chiều cao */
+      z-index: 1;
+    }
+
+    #homthu {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      left: calc(50% - 100px);
+      top: calc(50% - 100px);
+      z-index: 1;
+    }
+
     #bird {
       position: absolute;
       width: 150px;
       display: none;
       transition: all 0.5s ease-in-out;
+      z-index: 2;
     }
 
     #flapSound {
@@ -64,12 +83,16 @@
       position: absolute;
       width: 100%;
       text-align: center;
-      top: 70%;
+      top: 75%;
       font-size: 28px;
       font-weight: bold;
       color: #d63384;
       opacity: 0;
       transition: opacity 1s ease-in-out;
+    }
+
+    audio, video {
+      display: none;
     }
   </style>
 </head>
@@ -81,12 +104,16 @@
     <button id="startBtn">Click vào đây nha</button>
   </div>
 
-  <!-- Video tiếng vỗ cánh -->
+  <!-- Nhà và hòm thư -->
+  <img id="nha" src="nha22.png" alt="Ngôi nhà" />
+  <img id="homthu" src="homthu.jpg" alt="Hòm thư" />
+
+  <!-- Chim bồ câu -->
+  <img id="bird" src="bocauduathu.gif" alt="Chim bồ câu đưa thư" />
+
+  <!-- Âm thanh -->
   <video id="flapSound" src="dapcanh.mp3" autoplay></video>
   <audio id="bellSound" src="tiengchuong.mp3"></audio>
-
-  <!-- Ảnh chim bồ câu -->
-  <img id="bird" src="bocauduathu.gif" alt="Chim bồ câu đưa thư" />
 
   <!-- Lời nhắn -->
   <div id="message">Thảo ơi cậu có thư này!</div>
@@ -98,6 +125,7 @@
     const message = document.getElementById("message");
     const flapSound = document.getElementById("flapSound");
     const bellSound = document.getElementById("bellSound");
+    const homthu = document.getElementById("homthu");
 
     let moveCount = 0;
     const maxMoves = 30;
@@ -105,25 +133,27 @@
     let currentX = window.innerWidth - 170;
     let currentY = 30;
 
-    const centerX = (window.innerWidth - 150) / 2;
-    const centerY = (window.innerHeight - 150) / 2;
+    const mailboxX = homthu.offsetLeft;
+    const mailboxY = homthu.offsetTop;
 
-    // Delay hiển thị nút sau 1s
+    const finalX = mailboxX + 25; // để chim căn giữa trên hộp thư
+    const finalY = mailboxY - 80; // chim đậu phía trên hộp thư
+
+    // Hiện nút sau 1s
     window.onload = () => {
       setTimeout(() => {
         startBtn.style.display = "inline-block";
       }, 1000);
     };
 
-    // Khi nhấn vào nút "Click vào đây nha"
     startBtn.addEventListener("click", () => {
-      welcomeScreen.style.display = "none";      // Ẩn giao diện chào
-      bird.style.display = "block";              // Hiện chim
-      flapSound.style.display = "block";         // Bắt đầu tiếng vỗ cánh
-      flapSound.play();                          // Phát video âm thanh
+      welcomeScreen.style.display = "none";
+      bird.style.display = "block";
+      flapSound.style.display = "block";
+      flapSound.play();
       bird.style.left = `${currentX}px`;
       bird.style.top = `${currentY}px`;
-      moveBird();                                // Bắt đầu bay
+      moveBird();
     });
 
     function moveBird() {
@@ -131,11 +161,11 @@
         let deltaX, deltaY;
 
         if (moveCount < maxMoves / 2) {
-          deltaX = (Math.random() - 0.7) * 100;  // lệch trái
-          deltaY = Math.random() * 40;          // xuống dưới
+          deltaX = (Math.random() - 0.7) * 100;
+          deltaY = Math.random() * 40;
         } else {
-          const toCenterX = centerX - currentX;
-          const toCenterY = centerY - currentY;
+          const toCenterX = finalX - currentX;
+          const toCenterY = finalY - currentY;
           deltaX = toCenterX * 0.2 + (Math.random() - 0.5) * 40;
           deltaY = toCenterY * 0.2 + (Math.random() - 0.5) * 30;
         }
@@ -152,15 +182,16 @@
         moveCount++;
         setTimeout(moveBird, 300);
       } else {
-        // Dừng chính giữa
-        bird.style.left = `${centerX}px`;
-        bird.style.top = `${centerY}px`;
+        // Chim đậu ngay phía trên hòm thư
+        bird.style.left = `${finalX}px`;
+        bird.style.top = `${finalY}px`;
 
-        // Dừng âm thanh
+        // Dừng vỗ cánh và phát chuông
         flapSound.pause();
         flapSound.currentTime = 0;
         flapSound.style.display = "none";
         bellSound.play();
+
         // Hiện lời nhắn
         setTimeout(() => {
           message.style.opacity = 1;
