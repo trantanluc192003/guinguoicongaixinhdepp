@@ -111,7 +111,15 @@
       position: absolute;
       display: none;
     }
-
+    #thongbao {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      bottom: 20px;
+      right: 320px; /* nằm bên trái ảnh hồ nước (300px + khoảng cách) */
+      display: none;
+      z-index: 1;
+    }
     #message {
       position: absolute;
       width: 100%;
@@ -144,6 +152,7 @@
   <img id="dammay" src="may23.png" alt="Đám mây" />
   <img id="dammay2" src="dammay2.png" alt="Đám mây 2" />
   <img id="honuoc" src="honuoc.png" alt="Hồ nước" />
+  <img id="thongbao" src="thongbao.png" alt="Thông báo" />
 
   <!-- Chim bồ câu -->
   <img id="bird" src="bocauduathu.gif" alt="Chim bồ câu đưa thư" />
@@ -232,7 +241,13 @@
         // Hiện lời nhắn
         setTimeout(() => {
           message.style.opacity = 1;
-        }, 800);
+        }, 1000);
+        setTimeout(() => {
+          message.style.opacity = 1;
+
+          // Hiện ảnh thông báo
+          document.getElementById("thongbao").style.display = "block";
+        }, 800);        
       }
     }
   </script>
