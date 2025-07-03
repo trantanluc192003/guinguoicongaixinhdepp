@@ -131,7 +131,32 @@
       opacity: 0;
       transition: opacity 1s ease-in-out;
     }
-
+    #openLetterBtn {
+      position: absolute;
+      top: 82%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #ff6699;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      display: none;
+      animation: blink 1s infinite;
+      z-index: 5;
+    }
+    #letterPaper {
+      position: absolute;
+      width: 500px;
+      height: 700px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      z-index: 10;
+    }   
     audio, video {
       display: none;
     }
@@ -163,7 +188,8 @@
 
   <!-- Lời nhắn -->
   <div id="message">Thảo ơi cậu có thư này!</div>
-
+  <button id="openLetterBtn">Ấn vào đây để mở thư nha</button>
+  <img id="letterPaper" src="paper.jpg" alt="Nội dung thư" />
   <script>
     const welcomeScreen = document.getElementById("welcomeScreen");
     const startBtn = document.getElementById("startBtn");
@@ -172,7 +198,8 @@
     const flapSound = document.getElementById("flapSound");
     const bellSound = document.getElementById("bellSound");
     const homthu = document.getElementById("homthu");
-
+    const openLetterBtn = document.getElementById("openLetterBtn");
+    const letterPaper = document.getElementById("letterPaper");
     let moveCount = 0;
     const maxMoves = 30;
 
@@ -247,9 +274,33 @@
 
           // Hiện ảnh thông báo
           document.getElementById("thongbao").style.display = "block";
-        }, 800);        
+        }, 800); 
+
+        setTimeout(() => {
+          message.style.opacity = 1;
+          document.getElementById("thongbao").style.display = "block";
+          // Hiện nút mở thư sau 1 giây
+          setTimeout(() => {
+            document.getElementById("openLetterBtn").style.display = "block";
+          }, 1000);
+        }, 800);               
       }
     }
+    openLetterBtn.addEventListener("click", () => {
+      document.getElementById("bird").style.display = "none";
+      document.getElementById("message").style.display = "none";
+      document.getElementById("homthu").style.display = "none";
+      document.getElementById("nha").style.display = "none";
+      document.getElementById("dammay").style.display = "none";
+      document.getElementById("dammay2").style.display = "none";
+      document.getElementById("mattroi").style.display = "none";
+      document.getElementById("honuoc").style.display = "none";
+      document.getElementById("thongbao").style.display = "none";
+      openLetterBtn.style.display = "none";
+
+      // Hiện ảnh thư
+      letterPaper.style.display = "block";
+    });
   </script>
 </body>
 </html>
