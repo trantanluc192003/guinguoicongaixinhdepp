@@ -283,9 +283,8 @@
     });
 
     startBtn.addEventListener("click", () => {
+      
       welcomeScreen.style.display = "none";
-      mainScreen.style.display = "block";
-
       bird.style.display = "block";
       flapSound.style.display = "block";
       flapSound.play();
@@ -308,6 +307,8 @@
         }
         currentX += deltaX;
         currentY += deltaY;
+        currentX = Math.min(window.innerWidth - 150, Math.max(0, currentX));
+        currentY = Math.min(window.innerHeight - 150, Math.max(0, currentY));
         bird.style.left = `${currentX}px`;
         bird.style.top = `${currentY}px`;
         moveCount++;
