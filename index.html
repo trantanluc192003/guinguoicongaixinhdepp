@@ -198,7 +198,7 @@
 
   <video id="flapSound" src="dapcanh.mp3" autoplay></video>
   <audio id="bellSound" src="tiengchuong.mp3"></audio>
-  <audio id="helloSound" src="hello.mp4"></audio>
+  <audio id="helloSound" src="hello.mp3"></audio>
 
   <button id="openLetterBtn">Ấn vào đây để mở thư nha ><</button>
   <img id="letterPaper" src="paper.jpg" alt="Nội dung thư" />
@@ -215,7 +215,7 @@
     const openLetterBtn = document.getElementById("openLetterBtn");
     const letterPaper = document.getElementById("letterPaper");
     const mainScreen = document.getElementById("mainScreen");
-
+    helloSound.play();
     let moveCount = 0;
     const maxMoves = 30;
     let currentX = window.innerWidth - 170;
@@ -233,7 +233,7 @@
     };
 
     startBtn.addEventListener("click", () => {
-      helloSound.play();
+      
       welcomeScreen.style.display = "none";
       bird.style.display = "block";
       flapSound.style.display = "block";
