@@ -221,8 +221,10 @@
   <!-- Màn hình mở đầu -->
   <div id="introScreen">
     <img id="loadGif" src="load.gif" alt="Loading..." />
-    <button id="startIntroBtn">Start</button>
-    <img id="clickIcon" src="click.png" alt="Click icon" />
+    <div id="introControls">
+      <img id="clickIcon" src="click.png" alt="Click icon" />
+      <button id="startIntroBtn">Start</button>
+    </div>
     <audio id="helloSound" src="hello.mp3"></audio>
   </div>
 
@@ -280,8 +282,7 @@
     window.onload = () => {
       setTimeout(() => {
         loadGif.style.display = "none";
-        
-        document.getElementById("introControls").style.display = "flex";
+        document.getElementById("introControls").style.display = "flex"; // Hiện cả icon + nút
       }, 2500);
     };
 
