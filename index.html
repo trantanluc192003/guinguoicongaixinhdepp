@@ -24,6 +24,7 @@
       align-items: center;
       justify-content: center;
       z-index: 10;
+      display: none;
     }
 
     #welcomeImg {
@@ -179,6 +180,12 @@
   </style>
 </head>
 <body>
+  <div id="introScreen">
+    <img id="loadGif" src="load.gif" alt="Đang tải..." />
+    <button id="startIntroBtn">Start</button>
+    <audio id="helloSound" src="hello.mp3"></audio>
+  </div>
+
   <div id="welcomeScreen">
     <img id="welcomeImg" src="hellocutee.gif" alt="Xin chào" />
     <button id="startBtn">Click vào chỗ này nè !!</button>
@@ -198,24 +205,27 @@
 
   <video id="flapSound" src="dapcanh.mp3" autoplay></video>
   <audio id="bellSound" src="tiengchuong.mp3"></audio>
-  <audio id="helloSound" src="hello.mp3"></audio>
+  
 
   <button id="openLetterBtn">Ấn vào đây để mở thư nha ><</button>
   <img id="letterPaper" src="paper.jpg" alt="Nội dung thư" />
 
   <script>
+    const introScreen = document.getElementById("introScreen");
+    const loadGif = document.getElementById("loadGif");
+    const startIntroBtn = document.getElementById("startIntroBtn");
     const welcomeScreen = document.getElementById("welcomeScreen");
+    const helloSound = document.getElementById("helloSound");
     const startBtn = document.getElementById("startBtn");
     const bird = document.getElementById("bird");
     const message = document.getElementById("message");
     const flapSound = document.getElementById("flapSound");
     const bellSound = document.getElementById("bellSound");
-    const helloSound = document.getElementById("helloSound");
     const homthu = document.getElementById("homthu");
     const openLetterBtn = document.getElementById("openLetterBtn");
     const letterPaper = document.getElementById("letterPaper");
     const mainScreen = document.getElementById("mainScreen");
-    helloSound.play();
+    
     let moveCount = 0;
     const maxMoves = 30;
     let currentX = window.innerWidth - 170;
@@ -227,11 +237,24 @@
     const finalY = mailboxY - 80;
 
     window.onload = () => {
+      // Sau 3s ẩn gif, hiện nút Start
       setTimeout(() => {
-        startBtn.style.display = "inline-block";
-      }, 1000);
+        loadGif.style.display = "none";
+        startIntroBtn.style.display = "block";
+      }, 3000);
     };
+    // Khi nhấn Start
+    startIntroBtn.addEventListener("click", () => {
+      // Sau 1 giây, phát nhạc và chuyển màn hình
+      setTimeout(() => {
+        helloSound.play();
+      }, 1000);
 
+      // Ẩn intro, hiện welcomeScreen
+      introScreen.style.display = "none";
+      welcomeScreen.style.display = "flex";
+    });
+    
     startBtn.addEventListener("click", () => {
       
       welcomeScreen.style.display = "none";
