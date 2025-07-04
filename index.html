@@ -283,17 +283,25 @@
     });
 
     startBtn.addEventListener("click", () => {
-      
       welcomeScreen.style.display = "none";
+      mainScreen.style.display = "block"; // Đảm bảo mainScreen được bật
+      
+      // Tính lại vị trí hộp thư ngay lúc này
+      const mailboxX = homthu.offsetLeft;
+      const mailboxY = homthu.offsetTop;
+      const finalX = mailboxX + 25;
+      const finalY = mailboxY - 80;
+
+      bird.style.left = `${currentX}px`;
+      bird.style.top = `${currentY}px`;
       bird.style.display = "block";
       flapSound.style.display = "block";
       flapSound.play();
-      bird.style.left = `${currentX}px`;
-      bird.style.top = `${currentY}px`;
-      moveBird();
+
+      moveBird(finalX, finalY);
     });
 
-    function moveBird() {
+    function moveBird(finalX, finalY) {
       if (moveCount < maxMoves) {
         let deltaX, deltaY;
         if (moveCount < maxMoves / 2) {
@@ -305,6 +313,7 @@
           deltaX = toCenterX * 0.2 + (Math.random() - 0.5) * 40;
           deltaY = toCenterY * 0.2 + (Math.random() - 0.5) * 30;
         }
+
         currentX += deltaX;
         currentY += deltaY;
         currentX = Math.min(window.innerWidth - 150, Math.max(0, currentX));
@@ -312,7 +321,7 @@
         bird.style.left = `${currentX}px`;
         bird.style.top = `${currentY}px`;
         moveCount++;
-        setTimeout(moveBird, 300);
+        setTimeout(() => moveBird(finalX, finalY), 300);
       } else {
         bird.style.left = `${finalX}px`;
         bird.style.top = `${finalY}px`;
