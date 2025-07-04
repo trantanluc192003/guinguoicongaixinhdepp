@@ -198,7 +198,19 @@
       display: block;
       opacity: 1;
     }
+    #introControls {
+      display: none; /* Ẩn ban đầu */
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: center;
+    }
 
+    #clickIcon {
+      width: 60px;
+      height: auto;
+    }
     audio, video {
       display: none;
     }
@@ -210,6 +222,7 @@
   <div id="introScreen">
     <img id="loadGif" src="load.gif" alt="Loading..." />
     <button id="startIntroBtn">Start</button>
+    <img id="clickIcon" src="click.png" alt="Click icon" />
     <audio id="helloSound" src="hello.mp3"></audio>
   </div>
 
@@ -267,7 +280,8 @@
     window.onload = () => {
       setTimeout(() => {
         loadGif.style.display = "none";
-        startIntroBtn.style.display = "block";
+        
+        document.getElementById("introControls").style.display = "flex";
       }, 2500);
     };
 
