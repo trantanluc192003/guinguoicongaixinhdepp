@@ -14,17 +14,44 @@
       position: relative;
     }
 
+    #introScreen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #ffe6f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    #loadGif {
+      width: 200px;
+    }
+
+    #startIntroBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #ef5da8;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      display: none;
+      cursor: pointer;
+    }
+
     #welcomeScreen {
       position: absolute;
       width: 100%;
       height: 100%;
       background-color: #f8f1f6;
-      display: flex;
+      display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 10;
-      display: none;
+      z-index: 900;
     }
 
     #welcomeImg {
@@ -40,7 +67,6 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      display: none;
       animation: blink 1s infinite;
     }
 
@@ -50,14 +76,19 @@
     }
 
     #mainScreen {
+      display: none;
       transition: opacity 1s ease;
     }
+
     .fade-out {
       opacity: 0;
     }
 
-    #nha {
+    #nha, #honuoc, #homthu, #bird, #mattroi, #dammay, #dammay2, #thongbao {
       position: absolute;
+    }
+
+    #nha {
       width: 550px;
       height: 550px;
       left: 30px;
@@ -66,7 +97,6 @@
     }
 
     #honuoc {
-      position: absolute;
       width: 300px;
       height: 300px;
       bottom: 0;
@@ -75,7 +105,6 @@
     }
 
     #homthu {
-      position: absolute;
       width: 200px;
       height: 200px;
       left: calc(50% - 100px);
@@ -84,7 +113,6 @@
     }
 
     #bird {
-      position: absolute;
       width: 150px;
       display: none;
       transition: all 0.5s ease-in-out;
@@ -92,7 +120,6 @@
     }
 
     #mattroi {
-      position: absolute;
       width: 100px;
       height: 100px;
       top: 40px;
@@ -101,7 +128,6 @@
     }
 
     #dammay, #dammay2 {
-      position: absolute;
       width: 250px;
       height: 150px;
       z-index: 0;
@@ -118,7 +144,6 @@
     }
 
     #thongbao {
-      position: absolute;
       width: 200px;
       height: 150px;
       bottom: 100px;
@@ -180,17 +205,21 @@
   </style>
 </head>
 <body>
+
+  <!-- Màn hình mở đầu -->
   <div id="introScreen">
-    <img id="loadGif" src="load.gif" alt="Đang tải..." />
+    <img id="loadGif" src="load.gif" alt="Loading..." />
     <button id="startIntroBtn">Start</button>
     <audio id="helloSound" src="hello.mp3"></audio>
   </div>
 
+  <!-- Màn hình chào -->
   <div id="welcomeScreen">
     <img id="welcomeImg" src="hellocutee.gif" alt="Xin chào" />
     <button id="startBtn">Click vào chỗ này nè !!</button>
   </div>
 
+  <!-- Màn hình chính -->
   <div id="mainScreen">
     <img id="nha" src="nha222.png" alt="Ngôi nhà" />
     <img id="homthu" src="homthu.png" alt="Hòm thư" />
@@ -205,7 +234,6 @@
 
   <video id="flapSound" src="dapcanh.mp3" autoplay></video>
   <audio id="bellSound" src="tiengchuong.mp3"></audio>
-  
 
   <button id="openLetterBtn">Ấn vào đây để mở thư nha ><</button>
   <img id="letterPaper" src="paper.jpg" alt="Nội dung thư" />
@@ -225,39 +253,37 @@
     const openLetterBtn = document.getElementById("openLetterBtn");
     const letterPaper = document.getElementById("letterPaper");
     const mainScreen = document.getElementById("mainScreen");
-    
+
     let moveCount = 0;
     const maxMoves = 30;
     let currentX = window.innerWidth - 170;
     let currentY = 30;
 
-    const mailboxX = homthu.offsetLeft;
-    const mailboxY = homthu.offsetTop;
+    const mailboxX = 500;
+    const mailboxY = 300;
     const finalX = mailboxX + 25;
     const finalY = mailboxY - 80;
 
     window.onload = () => {
-      // Sau 3s ẩn gif, hiện nút Start
       setTimeout(() => {
         loadGif.style.display = "none";
         startIntroBtn.style.display = "block";
       }, 3000);
     };
-    // Khi nhấn Start
+
     startIntroBtn.addEventListener("click", () => {
-      // Sau 1 giây, phát nhạc và chuyển màn hình
       setTimeout(() => {
         helloSound.play();
       }, 1000);
 
-      // Ẩn intro, hiện welcomeScreen
       introScreen.style.display = "none";
       welcomeScreen.style.display = "flex";
     });
-    
+
     startBtn.addEventListener("click", () => {
-      
       welcomeScreen.style.display = "none";
+      mainScreen.style.display = "block";
+
       bird.style.display = "block";
       flapSound.style.display = "block";
       flapSound.play();
@@ -280,8 +306,6 @@
         }
         currentX += deltaX;
         currentY += deltaY;
-        currentX = Math.min(window.innerWidth - 150, Math.max(0, currentX));
-        currentY = Math.min(window.innerHeight - 150, Math.max(0, currentY));
         bird.style.left = `${currentX}px`;
         bird.style.top = `${currentY}px`;
         moveCount++;
