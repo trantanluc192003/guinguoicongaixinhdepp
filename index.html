@@ -273,8 +273,10 @@
 
     startIntroBtn.addEventListener("click", () => {
       setTimeout(() => {
+        helloSound.volume = 0.5;
         helloSound.play();
-      }, 1000);
+        
+      }, 500);
 
       introScreen.style.display = "none";
       welcomeScreen.style.display = "flex";
