@@ -232,7 +232,7 @@
     <div id="message">Thảo ơi! cậu có thư này💌!</div>
   </div>
 
-  <video id="flapSound" src="dapcanh.mp3" autoplay></video>
+  <audio id="flapSound" src="dapcanh.mp3"></audio>
   <audio id="bellSound" src="tiengchuong.mp3"></audio>
 
   <button id="openLetterBtn">Ấn vào đây để mở thư nha ><</button>
@@ -295,7 +295,7 @@
       bird.style.left = `${currentX}px`;
       bird.style.top = `${currentY}px`;
       bird.style.display = "block";
-      flapSound.style.display = "block";
+      flapSound.currentTime = 0;
       flapSound.play();
 
       moveBird(finalX, finalY);
