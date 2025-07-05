@@ -58,7 +58,21 @@
       width: 300px;
       margin-bottom: 20px;
     }
+    .falling {
+      position: fixed;
+      top: -50px;
+      z-index: 999;
+      pointer-events: none;
+      animation-name: fall;
+      animation-timing-function: linear;
+    }
 
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
     #startBtn {
       padding: 12px 20px;
       font-size: 18px;
@@ -315,7 +329,7 @@
     startBtn.addEventListener("click", () => {
       welcomeScreen.style.display = "none";
       mainScreen.style.display = "block"; // Đảm bảo mainScreen được bật
-      
+      moveCount = 0;
       // Tính lại vị trí hộp thư ngay lúc này
       const mailboxX = homthu.offsetLeft;
       const mailboxY = homthu.offsetTop;
@@ -368,7 +382,25 @@
         }, 800);
       }
     }
+    function createFallingItem(src, sizeMin = 20, sizeMax = 40, durationMin = 3, durationMax = 6) {
+      const item = document.createElement("img");
+      item.src = src;
+      item.className = "falling";
+      const size = sizeMin + Math.random() * (sizeMax - sizeMin);
+      item.style.width = `${size}px`;
+      item.style.left = `${Math.random() * window.innerWidth}px`;
+      item.style.animationDuration = `${durationMin + Math.random() * (durationMax - durationMin)}s`;
+      document.body.appendChild(item);
+      setTimeout(() => item.remove(), 8000);
+    }
 
+    function startFallingAll() {
+      const images = ["co4la.png", "ngoisao.png", "traitim.png"];
+      setInterval(() => {
+        const imgSrc = images[Math.floor(Math.random() * images.length)];
+        createFallingItem(imgSrc);
+      }, 250);
+    }
     openLetterBtn.addEventListener("click", () => {
     mainScreen.classList.add("fade-out");
     openLetterBtn.style.display = "none";
@@ -386,7 +418,9 @@
           letterContent.classList.add("show");
           setTimeout(() => {
             document.getElementById("noteBox").classList.add("show");
-          }, 9000);           
+            setTimeout(startFallingAll, 1000);
+          }, 9000);
+                
         }, 1000); // Đợi hiệu ứng mờ hoàn tất (1 giây)
       }, 3000); // Sau khi bìa hiện 3 giây
     }, 1000);
