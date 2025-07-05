@@ -62,9 +62,10 @@
       position: fixed;
       top: -50px;
       z-index: 999;
-      pointer-events: none;
+      pointer-events: auto;
       animation-name: fall;
       animation-timing-function: linear;
+      cursor: pointer;
     }
 
     @keyframes fall {
@@ -423,7 +424,7 @@
         let message = "";
         if (src.includes("ngoisao")) {
           message = "✨ Chúc em luôn tỏa sáng như những ngôi sao ✨";
-        } else if (src.includes("co4la")) {
+        } else if (src.includes("co4laa")) {
           message = "🍀 Gửi em một nhành cỏ bốn lá – chúc em thật nhiều may mắn!";
         } else if (src.includes("traitim")) {
           message = "❤️ Gửi em một ngàn yêu thươngg ><";
