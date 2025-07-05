@@ -420,40 +420,50 @@
       item.style.left = `${Math.random() * window.innerWidth}px`;
       item.style.animationDuration = `${durationMin + Math.random() * (durationMax - durationMin)}s`;
 
-      // Gắn sự kiện click
+            // Gắn sự kiện click
+      let lastMessages = []; // 🌟 Lưu 3 câu chúc gần nhất
+
       item.addEventListener("click", () => {
-        let messages = [];
+        let message = "";
+        let options = [];
 
         if (src.includes("ngoisao")) {
-          messages = [
-            "🌟 Chúc em luôn tỏa sáng như những vì sao ✨",
+          options = [
+            "✨ Chúc em luôn tỏa sáng như những ngôi sao ✨",
             "🌟 Bạn không cần hoàn hảo, chỉ cần tỏa sáng đúng lúc.",
-            "🌟 Gửi bạn một ngôi sao nhỏ, hy vọng bạn thấy ấm áp hơn hôm nay.",
+            "🌟 Gửi bạn một ngôi sao nhỏ, hy vọng bạn thấy ấm áp hơn hôm nay",
             "🌟 Trên bầu trời đêm, luôn có một vì sao dành riêng cho bạn."
           ];
         } else if (src.includes("co4laa")) {
-          messages = [
-            "🍀 Mỗi chiếc lá đều ý nghĩa: niềm tin – hy vọng – tình yêu – may mắn. Chúc em có đủ cả !",
-            "🍀 Giữa bao nhiêu chiếc lá bình thường, bạn là chiếc lá đặc biệt thứ tư !",
-            "🍀 Có thể hôm nay bạn không thấy may mắn, nhưng chính bạn lại là “cỏ bốn lá” trong mắt tui đó.",
-            "🍀 Gửi em một nhành cỏ bốn lá – chúc em thật nhiều may mắn !",
-            "🍀 Chúc em những điều tốt lành nhất nhé !."
-            
+          options = [
+            "🍀 Gửi em một nhành cỏ bốn lá – chúc em thật nhiều may mắn!",
+            "🍀 Mỗi chiếc lá đều ý nghĩa: niềm tin – hy vọng – tình yêu – may mắn. Chúc em có đủ cả!",
+            "🍀 Giữa bao nhiêu chiếc lá bình thường, bạn là chiếc lá đặc biệt thứ tư.",
+            "🍀 Có thể hôm nay bạn không thấy may mắn, nhưng chính bạn lại là “cỏ bốn lá” trong mắt tui đó",
+            "🍀 Chúc em những điều tốt lành nhất"
           ];
         } else if (src.includes("traitim")) {
-          messages = [
-            "❤️ Chúc bạn một ngày tốt lành, không vì điều gì cả, chỉ vì bạn xứng đáng.",
+          options = [
             "❤️ Gửi em một ngàn yêu thươngg ><",
-            "❤️ Chỉ cần mỗi ngày em cười tươi, là đủ rồi.",
-            "❤️ Gửi bạn một trái tim nhỏ – mong bạn luôn cảm thấy ấm áp và bình yên."
+            "❤️ Chúc bạn một ngày tốt lành, không vì điều gì to lớn, chỉ vì bạn xứng đáng.",
+            "❤️ Chỉ cần em cười tươi, là đủ rồi.",
+            "❤️ Gửi bạn một trái tim nhỏ - mong bạn luôn cảm thấy ấm áp và bình yên."
           ];
         }
 
-        if (messages.length > 0) {
-          const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-          showWish(randomMsg);
-          item.remove(); // Gỡ ảnh ngay khi bấm trúng
-        }
+        // ❌ Loại bỏ 3 câu gần nhất khỏi danh sách
+        const filtered = options.filter(opt => !lastMessages.includes(opt));
+        const listToUse = filtered.length > 0 ? filtered : options;
+
+        // 🎲 Chọn ngẫu nhiên
+        message = listToUse[Math.floor(Math.random() * listToUse.length)];
+
+        // ✅ Cập nhật hàng đợi lastMessages
+        lastMessages.push(message);
+        if (lastMessages.length > 3) lastMessages.shift();
+
+        showWish(message);
+        item.remove();
       });
 
       document.body.appendChild(item);
