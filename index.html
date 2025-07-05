@@ -233,11 +233,11 @@
 
     @keyframes floatDown {
       0% {
-        top: 30%;
+        transform: translateY(0);
         opacity: 1;
       }
       100% {
-        top: 90%;
+        transform: translateY(200px); /* di chuyển nhẹ xuống 200px */
         opacity: 0;
       }
     }
@@ -476,12 +476,12 @@
       msg.className = "wishMessage";
       msg.textContent = text;
 
-      // Tạo vị trí xuất phát ngẫu nhiên từ phía trên màn hình
-      const startLeft = Math.random() * 80 + 10; // từ 10% đến 90% chiều ngang
-      const startTop = Math.random() * 10 + 5;    // từ 5% đến 15% chiều cao
+      // Tạo vị trí ngẫu nhiên phía trên màn hình
+      const startLeft = Math.random() * 80 + 10; // 10% đến 90%
+      const startTopPx = Math.random() * 100 + 30; // cách trên 30px đến 130px
 
       msg.style.left = `${startLeft}%`;
-      msg.style.top = `${startTop}%`;
+      msg.style.top = `${startTopPx}px`;
 
       document.body.appendChild(msg);
       setTimeout(() => msg.remove(), 5000);
