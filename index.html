@@ -422,17 +422,38 @@
 
       // Gắn sự kiện click
       item.addEventListener("click", () => {
-        let message = "";
+        let messages = [];
+
         if (src.includes("ngoisao")) {
-          message = "✨ Chúc em luôn tỏa sáng như những ngôi sao ✨";
+          messages = [
+            "🌟 Chúc em luôn tỏa sáng như những vì sao ✨",
+            "🌟 Bạn không cần hoàn hảo, chỉ cần tỏa sáng đúng lúc.",
+            "🌟 Gửi bạn một ngôi sao nhỏ, hy vọng bạn thấy ấm áp hơn hôm nay.",
+            "🌟 Trên bầu trời đêm, luôn có một vì sao dành riêng cho bạn."
+          ];
         } else if (src.includes("co4laa")) {
-          message = "🍀 Gửi em một nhành cỏ bốn lá – chúc em thật nhiều may mắn!";
+          messages = [
+            "🍀 Mỗi chiếc lá đều ý nghĩa: niềm tin – hy vọng – tình yêu – may mắn. Chúc em có đủ cả !",
+            "🍀 Giữa bao nhiêu chiếc lá bình thường, bạn là chiếc lá đặc biệt thứ tư !",
+            "🍀 Có thể hôm nay bạn không thấy may mắn, nhưng chính bạn lại là “cỏ bốn lá” trong mắt tui đó.",
+            "🍀 Gửi em một nhành cỏ bốn lá – chúc em thật nhiều may mắn !",
+            "🍀 Chúc em những điều tốt lành nhất nhé !."
+            
+          ];
         } else if (src.includes("traitim")) {
-          message = "❤️ Gửi em một ngàn yêu thươngg ><";
+          messages = [
+            "❤️ Chúc bạn một ngày tốt lành, không vì điều gì cả, chỉ vì bạn xứng đáng.",
+            "❤️ Gửi em một ngàn yêu thươngg ><",
+            "❤️ Chỉ cần mỗi ngày em cười tươi, là đủ rồi.",
+            "❤️ Gửi bạn một trái tim nhỏ – mong bạn luôn cảm thấy ấm áp và bình yên."
+          ];
         }
 
-        if (message) showWish(message);
-        item.remove(); // Gỡ ảnh ngay khi bấm trúng
+        if (messages.length > 0) {
+          const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+          showWish(randomMsg);
+          item.remove(); // Gỡ ảnh ngay khi bấm trúng
+        }
       });
 
       document.body.appendChild(item);
