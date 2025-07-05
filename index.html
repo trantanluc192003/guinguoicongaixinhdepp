@@ -181,22 +181,27 @@
       z-index: 5;
     }
 
-    #letterPaper {
+    #letterCover, #letterContent {
       position: absolute;
-      width: 500px;
+      width: 600px;
       height: 700px;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      display: none;
       opacity: 0;
+      display: none;
       transition: opacity 1s ease;
       z-index: 10;
     }
 
-    #letterPaper.show {
+    #letterCover.show,
+    #letterContent.show {
       display: block;
       opacity: 1;
+    }
+
+    #letterCover.fade-out {
+      opacity: 0;
     }
 
     audio, video {
@@ -236,7 +241,8 @@
   <audio id="bellSound" src="tiengchuong.mp3"></audio>
 
   <button id="openLetterBtn">Ấn vào đây để mở thư nha ><</button>
-  <img id="letterPaper" src="paper.jpg" alt="Nội dung thư" />
+  <img id="letterCover" src="biathua.jpg" alt="Bìa thư" />
+  <img id="letterContent" src="noidungthu.jpg" alt="Nội dung thư" />
 
   <script>
     const introScreen = document.getElementById("introScreen");
@@ -253,7 +259,9 @@
     const openLetterBtn = document.getElementById("openLetterBtn");
     const letterPaper = document.getElementById("letterPaper");
     const mainScreen = document.getElementById("mainScreen");
-
+    const letterCover = document.getElementById("letterCover");
+    const letterContent = document.getElementById("letterContent");
+    
     let moveCount = 0;
     const maxMoves = 30;
     let currentX = window.innerWidth - 170;
@@ -340,12 +348,23 @@
     }
 
     openLetterBtn.addEventListener("click", () => {
-      mainScreen.classList.add("fade-out");
-      openLetterBtn.style.display = "none";
+    mainScreen.classList.add("fade-out");
+    openLetterBtn.style.display = "none";
+
+    setTimeout(() => {
+      mainScreen.style.display = "none";
+      letterCover.classList.add("show");
+
+      // Sau 3 giây thì làm mờ bìa và hiện nội dung
       setTimeout(() => {
-        mainScreen.style.display = "none";
-        letterPaper.classList.add("show");
-      }, 1000);
+        letterCover.classList.add("fade-out");
+
+        setTimeout(() => {
+          letterCover.style.display = "none";
+          letterContent.classList.add("show");
+        }, 1000); // Đợi hiệu ứng mờ hoàn tất (1 giây)
+      }, 3000); // Sau khi bìa hiện 3 giây
+    }, 1000);
     });
   </script>
 </body>
