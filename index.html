@@ -213,7 +213,32 @@
       display: block;
       opacity: 1;
     }
+    .wishMessage {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px;
+      font-weight: bold;
+      color: #d63384;
+      background-color: #fff0f5;
+      padding: 10px 16px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      z-index: 9999;
+      animation: floatDown 4s ease forwards;
+      pointer-events: none;
+    }
 
+    @keyframes floatDown {
+      0% {
+        top: 30%;
+        opacity: 1;
+      }
+      100% {
+        top: 90%;
+        opacity: 0;
+      }
+    }
     #letterCover.fade-out {
       opacity: 0;
     }
@@ -392,10 +417,25 @@
       item.style.width = `${size}px`;
       item.style.left = `${Math.random() * window.innerWidth}px`;
       item.style.animationDuration = `${durationMin + Math.random() * (durationMax - durationMin)}s`;
+
+      // Gắn sự kiện click
+      item.addEventListener("click", () => {
+        let message = "";
+        if (src.includes("ngoisao")) {
+          message = "✨ Chúc em luôn tỏa sáng như những ngôi sao ✨";
+        } else if (src.includes("co4la")) {
+          message = "🍀 Gửi em một nhành cỏ bốn lá – chúc em thật nhiều may mắn!";
+        } else if (src.includes("traitim")) {
+          message = "❤️ Gửi em một ngàn yêu thươngg ><";
+        }
+
+        if (message) showWish(message);
+        item.remove(); // Gỡ ảnh ngay khi bấm trúng
+      });
+
       document.body.appendChild(item);
       setTimeout(() => item.remove(), 8000);
     }
-
     function startFallingAll() {
       const images = ["co4laa.png", "ngoisao.png", "traitim.png"];
       setInterval(() => {
@@ -429,6 +469,13 @@
       }, 3000); // Sau khi bìa hiện 3 giây
     }, 1000);
     });
+    function showWish(text) {
+      const msg = document.createElement("div");
+      msg.className = "wishMessage";
+      msg.textContent = text;
+      document.body.appendChild(msg);
+      setTimeout(() => msg.remove(), 4000);
+    }   
   </script>
 </body>
 </html>
