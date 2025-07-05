@@ -275,6 +275,7 @@
 
   <audio id="flapSound" src="dapcanh.mp3"></audio>
   <audio id="bellSound" src="tiengchuong.mp3"></audio>
+  <audio id="goodSound" src="good.mp3"></audio>
 
   <button id="openLetterBtn">Ấn vào đây để mở thư nha ><</button>
   <img id="letterCover" src="biathu.jpg" alt="Bìa thư" />
@@ -297,7 +298,8 @@
     const mainScreen = document.getElementById("mainScreen");
     const letterCover = document.getElementById("letterCover");
     const letterContent = document.getElementById("letterContent");
-    
+    const goodSound = document.getElementById("goodSound");
+
     let moveCount = 0;
     const maxMoves = 30;
     let currentX = window.innerWidth - 170;
@@ -418,6 +420,8 @@
           letterContent.classList.add("show");
           setTimeout(() => {
             document.getElementById("noteBox").classList.add("show");
+            goodSound.volume = 0.1;
+            goodSound.play();            
             setTimeout(startFallingAll, 1000);
           }, 9000);
                 
