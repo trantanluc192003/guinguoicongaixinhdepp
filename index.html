@@ -228,6 +228,7 @@
       z-index: 9999;
       animation: floatDown 4s ease forwards;
       pointer-events: none;
+      transform: translateX(-50%); /* giữ lại nếu muốn canh giữa theo chữ */
     }
 
     @keyframes floatDown {
@@ -474,9 +475,17 @@
       const msg = document.createElement("div");
       msg.className = "wishMessage";
       msg.textContent = text;
+
+      // Tạo vị trí xuất phát ngẫu nhiên từ phía trên màn hình
+      const startLeft = Math.random() * 80 + 10; // từ 10% đến 90% chiều ngang
+      const startTop = Math.random() * 10 + 5;    // từ 5% đến 15% chiều cao
+
+      msg.style.left = `${startLeft}%`;
+      msg.style.top = `${startTop}%`;
+
       document.body.appendChild(msg);
-      setTimeout(() => msg.remove(), 4000);
-    }   
+      setTimeout(() => msg.remove(), 5000);
+    }  
   </script>
 </body>
 </html>
