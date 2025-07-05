@@ -203,7 +203,28 @@
     #letterCover.fade-out {
       opacity: 0;
     }
-
+    #noteBox {
+      position: absolute;
+      top: 60%;
+      right: 30px;
+      width: 260px;
+      padding: 12px;
+      background-color: #fff0f5;
+      border: 2px dashed #d63384;
+      border-radius: 10px;
+      font-size: 16px;
+      color: #d63384;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      opacity: 0;
+      display: none;
+      transition: opacity 1s ease;
+      z-index: 15;
+    }
+    #noteBox.show {
+      display: block;
+      opacity: 1;
+    }
     audio, video {
       display: none;
     }
@@ -236,6 +257,7 @@
     <img id="bird" src="bocauduathu.gif" alt="Chim bồ câu" />
     <div id="message">Thảo ơi! cậu có thư này💌</div>
   </div>
+  <div id="noteBox">Hi, sorry anh viết chữ xấu lắm ráng đọc nha ><</div>
 
   <audio id="flapSound" src="dapcanh.mp3"></audio>
   <audio id="bellSound" src="tiengchuong.mp3"></audio>
@@ -362,6 +384,9 @@
         setTimeout(() => {
           letterCover.style.display = "none";
           letterContent.classList.add("show");
+          setTimeout(() => {
+            document.getElementById("noteBox").classList.add("show");
+          }, 3000);           
         }, 1000); // Đợi hiệu ứng mờ hoàn tất (1 giây)
       }, 3000); // Sau khi bìa hiện 3 giây
     }, 1000);
